@@ -39,30 +39,41 @@ int	ft_print_str(char *str)
 	return (len);
 }
 
-// //int	ft_print_digit(long n, int base)
-// //{
-// //	int count;
-
-// //	if (n < 0)
-// //	{
-// //		ft_print_char("-");
-// //		n *= -1;
-// //	}
-// //}
-
-int	ft_print_ptr(unsigned long ptr)
+int	ft_print_digit(long n, int base)
 {
-	int		ptr_loc;
+	int count;
 	char	*symbols;
 
+	count = 0;
 	symbols = "0123456789abcdef";
-	ptr_loc = 0;
-	ptr_loc += write (1, "0x", 2);
-	if (ptr == 0)
-		ptr_loc += write (1, "0", 1);
+	if (n < 0)
+	{
+		ft_print_char('-');
+		n *= -1;
+	}
+	else if (n < base)
+		return ft_print_char(symbols[n]);
 	else
-
+	{
+		count = ft_print_digit(n / base, base);
+		return count + ft_print_digit(n % base, base);
+	}
+	return (count);
 }
+
+// int	ft_print_ptr(unsigned long ptr)
+// {
+// 	int		ptr_loc;
+// 	char	*symbols;
+
+// 	symbols = "0123456789abcdef";
+// 	ptr_loc = 0;
+// 	ptr_loc += write (1, "0x", 2);
+// 	if (ptr == 0)
+// 		ptr_loc += write (1, "0", 1);
+// 	else
+
+// }
 
 int	ft_eval_format(char spec, va_list ap) //ap = argu pointer
 {
@@ -75,8 +86,8 @@ int	ft_eval_format(char spec, va_list ap) //ap = argu pointer
 		resu += ft_print_str(va_arg(ap, void *));
 	//else if (spec == 'p')
 	//	resu +=ft_print_ptr((unsigned long int)va_arg(ap, int *));
-	//else if (spec == 'd')
-	//	resu += ft_print_digit((long)va_arg(ap, int), 10);
+	else if (spec == 'd')
+		resu += ft_print_digit((long)va_arg(ap, int), 10);
 	//else if (spec == 'x' || spec == 'X')
 	//	resu += ft_print_digit((long)va_arg(ap, unsigned int), 16);
 	//else if (spec == 'u')
@@ -112,15 +123,15 @@ int	ft_printf(const char *format, ...)
 
 #include <stdio.h>
 
-// int	main(void)
-// {
-// 	//char 	a = 'a';
-// 	int 	x = 43;
-// 	//int		dec = 42.42;
-// 	// char 	*str = "Hello World!";
+int	main(void)
+{
+	//char 	a = 'a';
+	int 	x = 43;
+	//int		dec = 42.42;
+	// char 	*str = "Hello World!";
 
-// 	// ft_printf("Now can we print this: \n");
-// 	   printf("Now we can print this: %d\n", *x);
+	ft_printf("Now can we print this: %d\n", x);
+	   printf("Now we can print this: %d\n", x);
 	
-// 	return 0;
-// }
+	return 0;
+}
