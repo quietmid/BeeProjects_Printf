@@ -1,25 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_print_str.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlu <jlu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/17 18:20:58 by jlu               #+#    #+#             */
-/*   Updated: 2023/11/22 16:54:42 by jlu              ###   ########.fr       */
+/*   Created: 2023/11/22 13:49:30 by jlu               #+#    #+#             */
+/*   Updated: 2023/11/22 17:17:31 by jlu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	FT_PRINTF_H
-# define FT_PRINTF_H
+#include "ft_printf.h"
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdarg.h>
+static size_t	ft_strlen(const char *str)
+{
+	size_t	i;
 
-int	ft_printf(const char *format, ...);
-int	ft_print_char(int c);
-int	ft_print_str(char *str);
-int	ft_print_digit(int n, int base);
+	i = 0;
+	while (str[i] != '\0')
+	{
+		i++;
+	}
+	return (i);
+}
 
-#endif
+int	ft_print_str(char *str)
+{
+	int	len;
+
+	len = ft_strlen(str);
+	if (len > 0)
+		if (write (1, &*str, len) == -1)
+			return (-1);
+	return (len);
+}

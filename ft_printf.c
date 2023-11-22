@@ -6,76 +6,13 @@
 /*   By: jlu <jlu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 18:20:34 by jlu               #+#    #+#             */
-/*   Updated: 2023/11/20 17:13:37 by jlu              ###   ########.fr       */
+/*   Updated: 2023/11/22 18:26:25 by jlu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_print_char(int c)
-{
-	return (write (1, &c, 1));
-}
-
-size_t	ft_strlen(const char *str)
-{
-	size_t	i;
-
-	i = 0;
-	while (str[i] != '\0')
-	{
-		i++;
-	}
-	return (i);
-}
-
-int	ft_print_str(char *str)
-{
-	int	len;
-
-	len = ft_strlen(str);
-	if (len > 0)
-		write (1, &*str, len);
-	return (len);
-}
-
-int	ft_print_digit(long n, int base)
-{
-	int count;
-	char	*symbols;
-
-	count = 0;
-	symbols = "0123456789abcdef";
-	if (n < 0)
-	{
-		ft_print_char('-');
-		n *= -1;
-	}
-	else if (n < base)
-		return ft_print_char(symbols[n]);
-	else
-	{
-		count = ft_print_digit(n / base, base);
-		return count + ft_print_digit(n % base, base);
-	}
-	return (count);
-}
-
-// int	ft_print_ptr(unsigned long ptr)
-// {
-// 	int		ptr_loc;
-// 	char	*symbols;
-
-// 	symbols = "0123456789abcdef";
-// 	ptr_loc = 0;
-// 	ptr_loc += write (1, "0x", 2);
-// 	if (ptr == 0)
-// 		ptr_loc += write (1, "0", 1);
-// 	else
-
-// }
-
-int	ft_eval_format(char spec, va_list ap) //ap = argu pointer
+int	ft_eval_format(char spec, va_list ap)
 {
 	int	resu;
 
@@ -83,15 +20,15 @@ int	ft_eval_format(char spec, va_list ap) //ap = argu pointer
 	if (spec == 'c')
 		resu += ft_print_char(va_arg(ap, int));
 	else if (spec == 's')
-		resu += ft_print_str(va_arg(ap, void *));
+		resu += ft_print_str(va_arg(ap, char *));
 	//else if (spec == 'p')
-	//	resu +=ft_print_ptr((unsigned long int)va_arg(ap, int *));
-	else if (spec == 'd')
-		resu += ft_print_digit((long)va_arg(ap, int), 10);
-	//else if (spec == 'x' || spec == 'X')
-	//	resu += ft_print_digit((long)va_arg(ap, unsigned int), 16);
-	//else if (spec == 'u')
-	//	resu += ;
+	//	resu +=ft_print_ptr();
+	else if (spec == 'd' || spec == 'i')
+		resu += ft_print_digit(va_arg(ap, int), 10);
+	else if (spec == 'u')
+		resu += ft_print_digit((unsigned)va_arg(ap, int), 10);
+	else if (spec == 'x' || spec == 'X')
+		resu += ft_print_digit(va_arg(ap, unsigned int), 16);
 	else if (spec == '%')
 		resu += ft_print_char('%');
 	else
@@ -115,9 +52,15 @@ int	ft_printf(const char *format, ...)
 		if (format[i] == '%')
 			count += ft_eval_format(format[++i], ap);
 		else
-			count += write (1, &format[i], 1);
+		{
+			//count += ft_print_char(format[i]);
+			if (write (1, &format[i], 1) == -1)
+				return (-1);
+			count++;
+		}
 		i++;
 	}
+	va_end(ap);
 	return (count);
 }
 
@@ -125,13 +68,16 @@ int	ft_printf(const char *format, ...)
 
 int	main(void)
 {
-	//char 	a = 'a';
-	int 	x = 43;
+	char 	a = 'a';
+	int		ret;
+	int 	x = -2147483648;
 	//int		dec = 42.42;
-	// char 	*str = "Hello World!";
-
-	ft_printf("Now can we print this: %d\n", x);
-	   printf("Now we can print this: %d\n", x);
+	//char 	*str = "Hello World!";
+	
+	ret = ft_printf("Now can we print this: %d %c\n", x, a);
+	ft_printf("%i\n", ret);
+	ret = printf("Now we can print this: %d %c\n", x, a);
+	printf("%i\n", ret);
 	
 	return 0;
 }

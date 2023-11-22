@@ -6,13 +6,16 @@
 #    By: jlu <jlu@student.hive.fi>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/17 18:20:27 by jlu               #+#    #+#              #
-#    Updated: 2023/11/18 16:51:20 by jlu              ###   ########.fr        #
+#    Updated: 2023/11/22 14:34:58 by jlu              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
 
-SRC =
+SRC = ft_printf.c \
+	  ft_print_char.c \
+	  ft_print_digit.c \
+	  ft_print_str.c \
 
 BSRC = 
 
