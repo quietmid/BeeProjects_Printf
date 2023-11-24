@@ -6,7 +6,7 @@
 #    By: jlu <jlu@student.hive.fi>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/17 18:20:27 by jlu               #+#    #+#              #
-#    Updated: 2023/11/22 14:34:58 by jlu              ###   ########.fr        #
+#    Updated: 2023/11/23 15:25:19 by jlu              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,8 @@ SRC = ft_printf.c \
 	  ft_print_char.c \
 	  ft_print_digit.c \
 	  ft_print_str.c \
+	  ft_print_hex.c \
+	  ft_print_ptr.c \
 
 BSRC = 
 
@@ -31,11 +33,11 @@ all: $(NAME)
 $(NAME): $(OBJECTS) $(BOBJECTS)
 	ar rcs $(NAME) $(OBJECTS) $(BOBJECTS)
 
-bonus: .bonus
+#bonus: .bonus
 
-.bonus: $(OBJECTS) $(BOBJECTS)
-	ar rcs $(NAME) $(OBJECTS) $(BOBJECTS)
-	touch .bonus
+#.bonus: $(OBJECTS) $(BOBJECTS)
+#	ar rcs $(NAME) $(OBJECTS) $(BOBJECTS)
+#	touch .bonus
 
 clean: 
 	rm -f $(OBJECTS) $(BOBJECTS) .bonus

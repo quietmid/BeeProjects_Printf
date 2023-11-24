@@ -6,7 +6,7 @@
 /*   By: jlu <jlu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 18:31:53 by jlu               #+#    #+#             */
-/*   Updated: 2023/11/22 18:48:12 by jlu              ###   ########.fr       */
+/*   Updated: 2023/11/24 15:12:23 by jlu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,11 @@
 int	ft_print_hex(unsigned int n, int base, char spec)
 {
 	long	nbl;
-	int 	count;
+	int		count;
 	char	*symbols;
+	int		temp;
 
+	temp = 0;
 	nbl = n;
 	count = 0;
 	if (spec == 'x')
@@ -25,12 +27,13 @@ int	ft_print_hex(unsigned int n, int base, char spec)
 	else
 		symbols = "0123456789ABCDEF";
 	if (nbl < base)
-
-			return ft_print_char(symbols[nbl]);
+		temp = ft_print_char(symbols[nbl]);
 	else
 	{
-		count += ft_print_digit(nbl / base, base);
-		return count + ft_print_digit(nbl % base, base);
+		count += ft_print_hex(nbl / base, base, spec);
+		return (count + ft_print_hex(nbl % base, base, spec));
 	}
-	return (count);
+	if (temp == -1)
+		return (-1);
+	return (count + temp);
 }
