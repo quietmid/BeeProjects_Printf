@@ -6,7 +6,7 @@
 #    By: jlu <jlu@student.hive.fi>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/17 18:20:27 by jlu               #+#    #+#              #
-#    Updated: 2023/11/23 15:25:19 by jlu              ###   ########.fr        #
+#    Updated: 2023/11/28 16:32:11 by jlu              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,32 +19,22 @@ SRC = ft_printf.c \
 	  ft_print_hex.c \
 	  ft_print_ptr.c \
 
-BSRC = 
-
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
 OBJECTS = $(SRC:.c=.o)
 
-BOBJECTS = $(BSRC:.c=.o)
-
 all: $(NAME)
 
-$(NAME): $(OBJECTS) $(BOBJECTS)
-	ar rcs $(NAME) $(OBJECTS) $(BOBJECTS)
-
-#bonus: .bonus
-
-#.bonus: $(OBJECTS) $(BOBJECTS)
-#	ar rcs $(NAME) $(OBJECTS) $(BOBJECTS)
-#	touch .bonus
+$(NAME): $(OBJECTS)
+	ar rcs $(NAME) $(OBJECTS)
 
 clean: 
-	rm -f $(OBJECTS) $(BOBJECTS) .bonus
+	rm -f $(OBJECTS)
 
 fclean: clean
 	rm -f $(NAME) 
 	
 re: fclean all 
 
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re
