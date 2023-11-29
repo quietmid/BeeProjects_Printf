@@ -6,7 +6,7 @@
 /*   By: jlu <jlu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 14:38:44 by jlu               #+#    #+#             */
-/*   Updated: 2023/11/28 15:02:57 by jlu              ###   ########.fr       */
+/*   Updated: 2023/11/29 14:19:58 by jlu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,17 @@ int	ft_get_ptr(unsigned long n, unsigned long base, char *symbols)
 	temp = 0;
 	if (n < base)
 	{
-		temp = ft_print_char(symbols[n]);
-		if (temp == -1)
+		if (write (1, &symbols[n], 1) == -1)
 			return (-1);
-		count += temp;
+		count += 1;
 	}
 	else
 	{
-		temp = ft_print_digit(n / base, base);
+		temp = ft_get_ptr(n / base, base, symbols);
 		if (temp == -1)
 			return (-1);
 		count += temp;
-		temp = ft_print_digit(n % base, base);
+		temp = ft_get_ptr(n % base, base, symbols);
 		if (temp == -1)
 			return (-1);
 		count += temp;

@@ -6,7 +6,7 @@
 /*   By: jlu <jlu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 12:54:25 by jlu               #+#    #+#             */
-/*   Updated: 2023/11/28 15:36:27 by jlu              ###   ########.fr       */
+/*   Updated: 2023/11/29 14:21:27 by jlu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,17 @@ int	ft_get_digit(long long int n, int base, char *symbols)
 	temp = 0;
 	if (n < base)
 	{
-		if (ft_print_char(symbols[n]) == -1)
+		if (write (1, &symbols[n], 1) == -1)
 			return (-1);
 		return (count += 1);
 	}
 	else
 	{
-		temp = ft_print_digit(n / base, base);
+		temp = ft_get_digit(n / base, base, symbols);
 		if (temp == -1)
 			return (-1);
 		count += temp;
-		temp = ft_print_digit(n % base, base);
+		temp = ft_get_digit(n % base, base, symbols);
 		if (temp == -1)
 			return (-1);
 		count += temp;
@@ -49,7 +49,7 @@ int	ft_print_digit(long long int n, int base)
 	symbols = "0123456789abcdef";
 	if (n < 0)
 	{
-		if (ft_print_char('-') == -1)
+		if (write (1, "-", 1) == -1)
 			return (-1);
 		count++;
 		n *= -1;

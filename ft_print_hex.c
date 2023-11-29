@@ -6,7 +6,7 @@
 /*   By: jlu <jlu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 18:31:53 by jlu               #+#    #+#             */
-/*   Updated: 2023/11/28 15:10:50 by jlu              ###   ########.fr       */
+/*   Updated: 2023/11/29 14:18:56 by jlu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,17 @@ int	ft_get_hex(long int nbl, int base, char spec, char *symbols)
 	temp = 0;
 	if (nbl < base)
 	{
-		temp = ft_print_char(symbols[nbl]);
-		if (temp == -1)
+		if (write (1, &symbols[nbl], 1) == -1)
 			return (-1);
-		count += temp;
+		count += 1;
 	}
 	else
 	{
-		temp = ft_print_hex(nbl / base, base, spec);
+		temp = ft_get_hex(nbl / base, base, spec, symbols);
 		if (temp == -1)
 			return (-1);
 		count += temp;
-		temp = ft_print_hex(nbl % base, base, spec);
+		temp = ft_get_hex(nbl % base, base, spec, symbols);
 		if (temp == -1)
 			return (-1);
 		count += temp;
