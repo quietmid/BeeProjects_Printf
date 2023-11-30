@@ -6,7 +6,7 @@
 /*   By: jlu <jlu@student.hive.fi>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 18:20:34 by jlu               #+#    #+#             */
-/*   Updated: 2023/11/29 15:26:39 by jlu              ###   ########.fr       */
+/*   Updated: 2023/11/29 18:05:52 by jlu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ int	ft_printf(const char *format, ...)
 	while (*format != '\0')
 	{
 		temp = 0;
-		if (*format == '%' && ((*format + 1) != '\0'))
+		if (*format == '%' && (*(format + 1) != '\0'))
 			temp = ft_eval_format(*(++format), ap);
-		else
+		else if (*format != '%')
 			temp = write (1, format, 1);
 		++format;
 		if (temp == -1)
